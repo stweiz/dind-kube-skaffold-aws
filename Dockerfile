@@ -1,0 +1,24 @@
+FROM 20.10
+
+ENV ALPINE_GLIBC_VERSION=2.33-r0
+
+RUN apk --no-cache add ca-certificates wget unzip curl gettext make && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-${ALPINE_GLIBC_VERSION}.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-bin-${ALPINE_GLIBC_VERSION}.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    apk add --no-cache glibc-${ALPINE_GLIBC_VERSION}.apk glibc-bin-${ALPINE_GLIBC_VERSION}.apk glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    rm glibc-${ALPINE_GLIBC_VERSION}.apk glibc-bin-${ALPINE_GLIBC_VERSION}.apk glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin && \
+    curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+    install skaffold /usr/local/bin/ && \
+    rm skaffold && \
+    mkdir ~/aws-cli && \
+    cd ~/aws-cli && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    rm awscliv2.zip && \
+    ./aws/install && \
+    apk del ca-certificates unzip wget curl
