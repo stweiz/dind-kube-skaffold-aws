@@ -1,4 +1,4 @@
-FROM docker:20.10-dind
+FROM docker:19.03-dind
 
 ENV ALPINE_GLIBC_VERSION=2.33-r0
 
