@@ -1,6 +1,6 @@
 FROM docker:20.10-dind
 
-ENV ALPINE_GLIBC_VERSION=2.33-r0
+ENV ALPINE_GLIBC_VERSION=2.34-r0
 
 # git is needed for image tagging via skaffold
 RUN apk --no-cache add git ca-certificates wget unzip curl gettext make && \
