@@ -3,7 +3,7 @@ FROM docker:20.10-dind
 ENV ALPINE_GLIBC_VERSION=2.34-r0
 
 # git is needed for image tagging via skaffold
-RUN apk --no-cache add git ca-certificates wget unzip curl gettext make && \
+RUN apk --no-cache add git ca-certificates wget unzip curl gettext make gettext && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-${ALPINE_GLIBC_VERSION}.apk && \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-bin-${ALPINE_GLIBC_VERSION}.apk && \
