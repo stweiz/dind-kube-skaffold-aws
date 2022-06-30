@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=12
+version=13
 
 docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version} . && \
 docker tag bausparkadse/dind-kube-skaffold-aws:${version} bausparkadse/dind-kube-skaffold-aws:latest && \
