@@ -10,7 +10,7 @@ version=$((version+1))
 docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version}-1.24 -f Dockerfile.1.24 . && \
 docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version}-1.25 -f Dockerfile.1.25 . && \
 docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version}-1.26 -f Dockerfile.1.26 . && \
-docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version} -f Dockerfile.1.27 . && \
+docker build --pull -t bausparkadse/dind-kube-skaffold-aws:${version}-1.27 -f Dockerfile.1.27 . && \
 docker tag bausparkadse/dind-kube-skaffold-aws:${version}-1.27 bausparkadse/dind-kube-skaffold-aws:latest && \
 docker push bausparkadse/dind-kube-skaffold-aws:${version}-1.24 && \
 docker push bausparkadse/dind-kube-skaffold-aws:${version}-1.25 && \
