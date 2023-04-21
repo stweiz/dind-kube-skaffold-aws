@@ -21,5 +21,5 @@ docker push bausparkadse/dind-kube-skaffold-aws:latest
 echo -n ${version} > version
 
 git add version
-git commit -m "Makes new Docker image available"
+git commit -m "Makes new Docker image version ${version} available"
 git push
