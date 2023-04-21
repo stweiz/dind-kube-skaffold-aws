@@ -1,6 +1,6 @@
 FROM docker:20.10-dind
 
-ENV ALPINE_GLIBC_VERSION=2.35-r0
+ENV ALPINE_GLIBC_VERSION=2.35-r1
 ENV KUBERNETES_VERSION=1.24
 
 # git is needed for image tagging via skaffold
