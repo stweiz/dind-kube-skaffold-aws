@@ -18,4 +18,5 @@ To provide them, multiple Docker images are built with different tags.
 - Kubernetes 1.24: dind-kube-skaffold-aws:${version}-1.24
 - Kubernetes 1.25: dind-kube-skaffold-aws:${version}-1.25
 - Kubernetes 1.26: dind-kube-skaffold-aws:${version}-1.26
-- Kubernetes 1.27: dind-kube-skaffold-aws:${version}-1.27 or dind-kube-skaffold-aws:latest
+- Kubernetes 1.27: dind-kube-skaffold-aws:${version}-1.27
+- Kubernetes 1.28: dind-kube-skaffold-aws:${version}-1.28 or dind-kube-skaffold-aws:latest
