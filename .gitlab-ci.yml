@@ -1,0 +1,83 @@
+stages:
+  - build
+
+variables:
+  CUSTOM_REGISTRY: bausparkadse/dind-kube-skaffold-aws
+  CONTAINER_RELEASE_IMAGE: $CUSTOM_REGISTRY:$CI_COMMIT_REF_NAME
+
+build-1.24:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.24 -f Dockerfile.1.24 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.24
+  only:
+    - tags
+
+build-1.25:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.25 -f Dockerfile.1.25 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.25
+  only:
+    - tags
+
+build-1.26:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.26 -f Dockerfile.1.26 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.26
+  only:
+    - tags
+
+build-1.27:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.27 -f Dockerfile.1.27 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.27
+  only:
+    - tags
+
+build-latest:
+  stage: build
+  image: docker:24-dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.28 -f Dockerfile.1.28 .
+    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.28 ${CUSTOM_REGISTRY}:latest
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.28
+    - docker push ${CUSTOM_REGISTRY}:latest
+  only:
+    - tags
