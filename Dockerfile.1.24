@@ -1,7 +1,9 @@
-FROM docker:20.10-dind
+FROM docker:24-dind
 
 ENV ALPINE_GLIBC_VERSION=2.35-r1
 ENV KUBERNETES_VERSION=1.24
+
+COPY LICENSE /LICENSE
 
 # git is needed for image tagging via skaffold
 RUN apk --no-cache add git ca-certificates wget unzip curl gettext make && \
