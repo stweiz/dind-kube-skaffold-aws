@@ -13,7 +13,7 @@ build-1.24:
   before_script:
     - source ci_cd_scripts.sh
     - wait_for_docker
-    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.24 -f Dockerfile.1.24 .
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.24
@@ -28,7 +28,7 @@ build-1.25:
   before_script:
     - source ci_cd_scripts.sh
     - wait_for_docker
-    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.25 -f Dockerfile.1.25 .
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.25
@@ -43,7 +43,7 @@ build-1.26:
   before_script:
     - source ci_cd_scripts.sh
     - wait_for_docker
-    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.26 -f Dockerfile.1.26 .
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.26
@@ -58,7 +58,7 @@ build-1.27:
   before_script:
     - source ci_cd_scripts.sh
     - wait_for_docker
-    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.27 -f Dockerfile.1.27 .
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.27
@@ -73,7 +73,7 @@ build-latest:
   before_script:
     - source ci_cd_scripts.sh
     - wait_for_docker
-    - docker login -u bausparkadse -p $DOCKER_HUB_PASSWORD
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.28 -f Dockerfile.1.28 .
     - docker tag ${CONTAINER_RELEASE_IMAGE}-1.28 ${CUSTOM_REGISTRY}:latest
