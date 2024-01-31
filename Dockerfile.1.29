@@ -1,0 +1,26 @@
+FROM docker:29-dind
+
+ENV ALPINE_GLIBC_VERSION=2.35-r1
+ENV KUBERNETES_VERSION=1.29
+
+# git is needed for image tagging via skaffold
+RUN apk --no-cache add git ca-certificates wget unzip curl gettext make && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-${ALPINE_GLIBC_VERSION}.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-bin-${ALPINE_GLIBC_VERSION}.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    apk add --force-overwrite --no-cache glibc-${ALPINE_GLIBC_VERSION}.apk glibc-bin-${ALPINE_GLIBC_VERSION}.apk glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    rm glibc-${ALPINE_GLIBC_VERSION}.apk glibc-bin-${ALPINE_GLIBC_VERSION}.apk glibc-i18n-${ALPINE_GLIBC_VERSION}.apk && \
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-${KUBERNETES_VERSION}.txt)/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin && \
+    curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
+    install skaffold /usr/local/bin/ && \
+    rm skaffold && \
+    mkdir ~/aws-cli && \
+    cd ~/aws-cli && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    rm awscliv2.zip && \
+    ./aws/install && \
+    apk del ca-certificates unzip wget curl make
