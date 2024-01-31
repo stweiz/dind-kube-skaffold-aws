@@ -7,7 +7,7 @@ variables:
 
 build-1.24:
   stage: build
-  image: docker:24-dind
+  image: docker:dind
   services:
     - docker:dind
   before_script:
@@ -22,7 +22,7 @@ build-1.24:
 
 build-1.25:
   stage: build
-  image: docker:24-dind
+  image: docker:dind
   services:
     - docker:dind
   before_script:
@@ -37,7 +37,7 @@ build-1.25:
 
 build-1.26:
   stage: build
-  image: docker:24-dind
+  image: docker:dind
   services:
     - docker:dind
   before_script:
@@ -52,7 +52,7 @@ build-1.26:
 
 build-1.27:
   stage: build
-  image: docker:24-dind
+  image: docker:dind
   services:
     - docker:dind
   before_script:
@@ -65,9 +65,9 @@ build-1.27:
   only:
     - tags
 
-build-latest:
+build-1.28:
   stage: build
-  image: docker:24-dind
+  image: docker:dind
   services:
     - docker:dind
   before_script:
@@ -76,8 +76,23 @@ build-latest:
     - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.28 -f Dockerfile.1.28 .
-    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.28 ${CUSTOM_REGISTRY}:latest
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.28
+  only:
+    - tags
+
+build-latest:
+  stage: build
+  image: docker:dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.29 -f Dockerfile.1.29 .
+    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.29 ${CUSTOM_REGISTRY}:latest
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.29
     - docker push ${CUSTOM_REGISTRY}:latest
   only:
     - tags
