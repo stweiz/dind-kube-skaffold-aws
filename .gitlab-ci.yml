@@ -80,7 +80,7 @@ build-1.28:
   only:
     - tags
 
-build-latest:
+build-1.29:
   stage: build
   image: docker:dind
   services:
@@ -91,8 +91,23 @@ build-latest:
     - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.29 -f Dockerfile.1.29 .
-    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.29 ${CUSTOM_REGISTRY}:latest
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.29
+  only:
+    - tags
+
+build-1.30:
+  stage: build
+  image: docker:dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.30 -f Dockerfile.1.30 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.30
+    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.30 ${CUSTOM_REGISTRY}:latest
     - docker push ${CUSTOM_REGISTRY}:latest
   only:
     - tags
