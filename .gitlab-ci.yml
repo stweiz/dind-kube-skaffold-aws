@@ -122,7 +122,22 @@ build-1.31:
   script:
     - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.31 -f Dockerfile.1.31 .
     - docker push ${CONTAINER_RELEASE_IMAGE}-1.31
-    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.31 ${CUSTOM_REGISTRY}:latest
+  only:
+    - tags
+
+build-1.32:
+  stage: build
+  image: docker:dind
+  services:
+    - docker:dind
+  before_script:
+    - source ci_cd_scripts.sh
+    - wait_for_docker
+    - docker login -u bausparkadse -p ${DOCKER_HUB_PASSWORD}
+  script:
+    - docker build --pull -t ${CONTAINER_RELEASE_IMAGE}-1.32 -f Dockerfile.1.32 .
+    - docker push ${CONTAINER_RELEASE_IMAGE}-1.32
+    - docker tag ${CONTAINER_RELEASE_IMAGE}-1.32 ${CUSTOM_REGISTRY}:latest
     - docker push ${CUSTOM_REGISTRY}:latest
   only:
     - tags
